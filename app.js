@@ -30,15 +30,15 @@ app.get('/about', (req, res) => {
 app.get('/add_post', (req, res) => {
   res.render('add_post');
 });
-app.get('/post', (req, res) => {
-  res.render('post');
-});
 
 app.post('/add', async (req, res) => {
   await Post.create(req.body);
   res.redirect('/');
 });
-
+app.get('/posts/:id', async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  res.render('post', { post });
+});
 const port = 3000;
 
 //server listen
